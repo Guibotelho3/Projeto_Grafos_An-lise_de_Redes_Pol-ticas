@@ -3,7 +3,7 @@ Este projeto, parte da disciplina de Teoria dos Grafos, tem como objetivo analis
 O foco é aplicar métricas de centralidade e visualização de dados para obter insights sobre a coesão partidária, divergências entre partidos e comportamento individual de deputados.
 
 
-Funcionalidades Principais:
+##Funcionalidades Principais:
 
 
 Leitura de dados de votações e criação de grafos ponderados.
