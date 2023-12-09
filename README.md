@@ -1,2 +1,2 @@
-# Projeto_Grafos_An-lise_de_Redes_Pol-ticas
-Projeto que tem como objetivo analisar e plotar as relações de voto entre deputados em diferentes anos
+# Projeto Grafos Analise de Redes Politicas
+Projeto da disciplina Teoria dos Grafos que tem como objetivo analisar e plotar as relações de voto entre deputados em diferentes anos
