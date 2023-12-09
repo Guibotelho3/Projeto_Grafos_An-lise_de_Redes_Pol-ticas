@@ -5,7 +5,6 @@ O foco é aplicar métricas de centralidade e visualização de dados para obter
 
 
 Funcionalidades Principais:
-
 Leitura de dados de votações e criação de grafos ponderados.
 Aplicação de filtros por ano e partidos para análises específicas.
 Normalização e ajustes nos pesos das arestas para melhor representação.
