@@ -1,0 +1,54 @@
+import json 
+
+def cria_politicos(file_name):
+    politicos = dict()
+    try: 
+        file = open(file_name, "rt", encoding="utf-8")
+    except FileNotFoundError:
+        print("Erro!", file_name)
+        return None
+    else:
+        print(file_name)
+        data = json.loads(file.read())["dados"]
+        file.close()
+        for dep in data:
+            nome = dep["deputado_"]["nome"].replace(" ", "_")
+            if nome not in politicos:
+                politicos[nome] = {"id":dep["deputado_"]["id"], "partido":dep["deputado_"]["siglaPartido"], "votos":{}}
+            politicos[nome]["votos"].update({dep["idVotacao"]:dep["voto"]})
+        return politicos
+    
+def cria_adjacencies(politicos):
+    i = 0
+    cont = 0
+    adjacencias = dict()
+    controle = list()
+    for p1 in politicos:
+        adjacencias[p1] = dict()
+        controle.append(p1)
+        for p2 in politicos:
+            if p2 in controle: continue #garante que não compare dois politicos iguais
+            for v in politicos[p1]["votos"]:
+                if v in politicos[p2]["votos"]:
+                    if politicos[p1]["votos"][v] == politicos[p2]["votos"][v]:
+                        cont += 1
+            if cont > 0:
+                adjacencias[p1].update({p2:cont}) #update no peso da ligação da adjacencia?
+    return adjacencias
+
+def cria_dados(politicos, adjacencias, sufixo_arquivo):
+    file = open(f"politicos{sufixo_arquivo}.txt", "wt", encoding="utf-8")
+    for p in politicos:
+        file.write(f"{p}-{politicos[p]['partido']}-{len(politicos[p]['votos'])}\n")
+    file.close()
+    file = open(f"adjacencias{sufixo_arquivo}.txt", "wt", encoding="utf-8")
+    for a1 in adjacencias:
+        for a2 in adjacencias[a1]:
+            file.write(f"{a1}-{a2}-{adjacencias[a1][a2]}\n")
+    file.close()
+
+def cria_arquivos():
+    for ano in range(2001,2024):
+        politicos = cria_politicos(f"votacoesVotos-{ano}.json")
+        adjacencias = cria_adjacencies(politicos)
+        cria_dados(politicos, adjacencias, ano)
